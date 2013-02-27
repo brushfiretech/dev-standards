@@ -3,29 +3,41 @@ layout: default
 date: 02/25/2013
 ---
 
-## Why have standards and guidelines?
+# Introduction
 
-Whenever a team works on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion.  The practices outlined in this document are an attempt to do so based upon years of experience and commonly agreed-upon best practices.
+### Foreword
 
->The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn't use patterns in the first place. – Phil Haack
+Whenever two or more people work on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion. This is especially true of software development. The practices outlined in this document are an attempt to create a consistent set of standards based upon years of experience and commonly agreed-upon best practices.
 
-## General Document Guidelines
+>The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn't use patterns in the first place. – [Phil](https://twitter.com/haacked/status/20227608300) [Haack](https://twitter.com/haacked/status/20227672330)
+
+### General Document Guidelines
 
 * All indentation white space should be made with [__tabs and not spaces__](http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/).
-* Tab length can be set to any number of spaces in your personal editor that you prefer. 4 spaces is encouraged.
+* Tab length can be set to any number of spaces in your personal editor that you prefer. Two or four spaces are encouraged.
 * All trailing spaces at the end of lines should be removed.
 * File names should contain no spaces.
+
+# Front End (Client Side)
+
+## Browsers
+
+It is not important (or even possible) for our websites to appear _identically_ in every browser. Our purpose is to serve a functional site to all users of supported browsers by delivering content that is valuable to them. To that end, the site should function _similarly_ in all supported browsers and not appear broken.
+
+### We currently support
+
+IE 7+, and the latest versions of Firefox, Chrome, Safari, and Opera.
 
 ## HTML
 
 ### Semantics
 
->Semantics (from Greek: sēmantikós) is the study of meaning. It focuses on the relation between signifiers, like words, phrases, signs, and symbols, and what they stand for. – Wikipedia
+>Semantics (from Greek: sēmantikós) is the study of meaning. It focuses on the relation between signifiers, like words, phrases, signs, and symbols, and what they stand for. – [Wikipedia](hhttp://en.wikipedia.org/wiki/Semantics)
 
-HTML gives meaning to content so that browsers and devices can then give that meaning to a user.  Therefore use the correct element(s) to define the appropriate type of information you are presenting. (e.g, if it's a heading, use a `h1`, `h2`, `h3`, etc. If it is a list, use a `ul` or `ol`.)
+HTML gives meaning to content so that browsers and devices can then give that meaning to a user. Therefore use the correct element(s) to define the appropriate type of information you are presenting (e.g, if it's a heading, use a `h1`, `h2`, `h3`, etc. If it is a list, use a `ul` or `ol`). This is also a key component to creating an accessible site.
 
 <aside>
-Tables are the most common offender of semantic designs. Tables should __only__ be used for tabular data where rows and columns have clearly and traditionally defined roles and representation. Tables should __never__ be used to lay out content.
+Tables are the most common offender of semantic designs. Tables should __only__ be used for tabular data where rows and columns have clearly and traditionally defined roles and representation. Tables should __never__ be used to lay out content. Never.
 </aside>
 
 ### Formatting
@@ -49,16 +61,7 @@ Id and Class names should be lower case and hyphenated and not limit or specify 
 * Id's should __define what the object is and does__ rather than where it appears on the page or in the DOM hierarchy. (e.g. `nav1` rather than `top-nav`)
 * A class name should __describe the behavior that it defines__ rather than where it appears on the page or in the DOM hierarchy. (eg. `news-block` rather than `bottom-info`)
 
-### Best Practices/Recommendations
-
 Id’s should be assigned on a “general to specific” basis. e.g., `billing-name-first` shows that this is a field in the domain of the billing address, and then that this is part of the name element in that address, and of that name, this is the first name portion (to differentiate from `shipping-name-first` or `billing-name-last`).
-
-## Accessibility
-
-Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always:
-
-* use alt text on all images
-* use title attributes on all links
 
 ## CSS
 
@@ -82,14 +85,45 @@ Id and Class names should be lower case and hyphenated and not limit or specify 
 * All colors should be specified in HEX, RGB, or HSL. Fixed color names such as `white` or `black` should be avoided.
 * Shorthand notation should be used whenever possible (e.g. `margin: 10px 0px 10px 0px;` instead of `margin-
 top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;` and `color:#333;` instead of `color:#333333;`).
+
+```css
+margin: 10px 0px 10px 0px;
+
+instead of 
+
+margin-
+top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;
+
+and 
+
+color:#333;
+
+instead of
+
+color:#333333;
+
+```
+
 * Units: `em` and `%` are preferred over `px` and `pt` when feasible.
-* Units should always be provided due to issues with downlevel browsers (e.g. `margin: 10px 0px auto 10px;` instead of `margin: 10 0 auto 0;`)
+* Units are not necessary for "zero". Zero is zero in any unit.
+* Units should always be provided for non-zero units due to issues with downlevel browsers (e.g. `margin: 10px 0px auto 10px;` instead of `margin: 10 0 auto 0;`)
 * Fixed dimensions should __not__ be specified unless absolutely necessary. Use padding/margin values that ensure that the affected elements will still render as preferred regardless of the nature of dynamic content or device size.
 * Box-sizing should __always__ be set to `border-box`.
 * Style declarations should always be made at the lowest level of specificity required for consistent use. That is, a generic style should never be applied to solve a specific problem. (e.g., avoid using `div#searchbox input {font-size:larger;}` to adjust the style of a specific input control. Instead, reference that control by ID or assign a class to that control specifically. (e.g., `.search-field {font-size:larger;}`)
 * Classes are encouraged over Id's. Due to the nature of a large-scale application, it is often difficult to know if an object may be re-used, but it should be crafted such that it can be.
 
 ## JavaScript
+
+## Accessibility
+
+Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always:
+
+* use semantic HTML
+* use alt text on all images
+* use title attributes on all links
+* test our sites using a screen reader
+
+# Back End (Server Side)
 
 ## C-Sharp
 
@@ -107,8 +141,6 @@ Many-to-many tables should be named with the two table names concatenated togeth
 
 
 ## NoSQL
-
-## Browsers
 
 ## 3rd Party Tools
 

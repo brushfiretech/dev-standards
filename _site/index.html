@@ -18,42 +18,56 @@
         <h1>Design/Development Standards and Guidelines</h1>
         <p>Brushfire Technology<br/>
         Last Revised February 25, 2013</p>
-        <ul>
+        <ul class="github">
           <li><a href="https://github.com/brushfiretech/dev-standards/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/brushfiretech/dev-standards/tarball/master">Download <strong>TAR Ball</strong></a></li>
           <li><a href="https://github.com/brushfiretech/dev-standards">View On <strong>GitHub</strong></a></li>
         </ul>
+        <ul class="toc">
+        </ul>
       </header>
       <section>
-        <h2>Why have standards and guidelines?</h2>
+        <h1>Introduction</h1>
 
-<p>Whenever a team works on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion.  The practices outlined in this document are an attempt to do so based upon years of experience and commonly agreed-upon best practices.</p>
+<h3>Foreword</h3>
+
+<p>Whenever two or more people work on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion. This is especially true of software development. The practices outlined in this document are an attempt to create a consistent set of standards based upon years of experience and commonly agreed-upon best practices.</p>
 
 <blockquote>
-<p>The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn&#39;t use patterns in the first place. – Phil Haack</p>
+<p>The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn&#39;t use patterns in the first place. – <a href="https://twitter.com/haacked/status/20227608300">Phil</a> <a href="https://twitter.com/haacked/status/20227672330">Haack</a></p>
 </blockquote>
 
-<h2>General Document Guidelines</h2>
+<h3>General Document Guidelines</h3>
 
 <ul>
 <li>All indentation white space should be made with <a href="http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/"><strong>tabs and not spaces</strong></a>.</li>
-<li>Tab length can be set to any number of spaces in your personal editor that you prefer. 4 spaces is encouraged.</li>
+<li>Tab length can be set to any number of spaces in your personal editor that you prefer. Two or four spaces are encouraged.</li>
 <li>All trailing spaces at the end of lines should be removed.</li>
 <li>File names should contain no spaces.</li>
 </ul>
+
+<h1>Front End (Client Side)</h1>
+
+<h2>Browsers</h2>
+
+<p>It is not important (or even possible) for our websites to appear <em>identically</em> in every browser. Our purpose is to serve a functional site to all users of supported browsers by delivering content that is valuable to them. To that end, the site should function <em>similarly</em> in all supported browsers and not appear broken.</p>
+
+<h3>We currently support</h3>
+
+<p>IE 7+, and the latest versions of Firefox, Chrome, Safari, and Opera.</p>
 
 <h2>HTML</h2>
 
 <h3>Semantics</h3>
 
 <blockquote>
-<p>Semantics (from Greek: sēmantikós) is the study of meaning. It focuses on the relation between signifiers, like words, phrases, signs, and symbols, and what they stand for. – Wikipedia</p>
+<p>Semantics (from Greek: sēmantikós) is the study of meaning. It focuses on the relation between signifiers, like words, phrases, signs, and symbols, and what they stand for. – <a href="hhttp://en.wikipedia.org/wiki/Semantics">Wikipedia</a></p>
 </blockquote>
 
-<p>HTML gives meaning to content so that browsers and devices can then give that meaning to a user.  Therefore use the correct element(s) to define the appropriate type of information you are presenting. (e.g, if it&#39;s a heading, use a <code>h1</code>, <code>h2</code>, <code>h3</code>, etc. If it is a list, use a <code>ul</code> or <code>ol</code>.)</p>
+<p>HTML gives meaning to content so that browsers and devices can then give that meaning to a user. Therefore use the correct element(s) to define the appropriate type of information you are presenting (e.g, if it&#39;s a heading, use a <code>h1</code>, <code>h2</code>, <code>h3</code>, etc. If it is a list, use a <code>ul</code> or <code>ol</code>). This is also a key component to creating an accessible site.</p>
 
 <p><aside>
-Tables are the most common offender of semantic designs. Tables should <strong>only</strong> be used for tabular data where rows and columns have clearly and traditionally defined roles and representation. Tables should <strong>never</strong> be used to lay out content.
+Tables are the most common offender of semantic designs. Tables should <strong>only</strong> be used for tabular data where rows and columns have clearly and traditionally defined roles and representation. Tables should <strong>never</strong> be used to lay out content. Never.
 </aside></p>
 
 <h3>Formatting</h3>
@@ -78,18 +92,7 @@ Tables are the most common offender of semantic designs. Tables should <strong>o
 <li>A class name should <strong>describe the behavior that it defines</strong> rather than where it appears on the page or in the DOM hierarchy. (eg. <code>news-block</code> rather than <code>bottom-info</code>)</li>
 </ul>
 
-<h3>Best Practices/Recommendations</h3>
-
 <p>Id’s should be assigned on a “general to specific” basis. e.g., <code>billing-name-first</code> shows that this is a field in the domain of the billing address, and then that this is part of the name element in that address, and of that name, this is the first name portion (to differentiate from <code>shipping-name-first</code> or <code>billing-name-last</code>).</p>
-
-<h2>Accessibility</h2>
-
-<p>Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always:</p>
-
-<ul>
-<li>use alt text on all images</li>
-<li>use title attributes on all links</li>
-</ul>
 
 <h2>CSS</h2>
 
@@ -116,8 +119,26 @@ identifier after a dash (e.g. <code>style-ie.css</code>) and should ONLY contain
 <li>All colors should be specified in HEX, RGB, or HSL. Fixed color names such as <code>white</code> or <code>black</code> should be avoided.</li>
 <li>Shorthand notation should be used whenever possible (e.g. <code>margin: 10px 0px 10px 0px;</code> instead of <code>margin-
 top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;</code> and <code>color:#333;</code> instead of <code>color:#333333;</code>).</li>
+</ul>
+<div class="highlight"><pre><code class="css"><span class="nt">margin</span><span class="o">:</span> <span class="nt">10px</span> <span class="nt">0px</span> <span class="nt">10px</span> <span class="nt">0px</span><span class="o">;</span>
+
+<span class="nt">instead</span> <span class="nt">of</span> 
+
+<span class="nt">margin-</span>
+<span class="nt">top</span><span class="nd">:10px</span><span class="o">;</span><span class="nt">margin-right</span><span class="nd">:0px</span><span class="o">;</span><span class="nt">margin-bottom</span><span class="nd">:10px</span><span class="o">;</span><span class="nt">margin-left</span><span class="nd">:0px</span><span class="o">;</span>
+
+<span class="nt">and</span> 
+
+<span class="nt">color</span><span class="o">:</span><span class="nf">#333</span><span class="o">;</span>
+
+<span class="nt">instead</span> <span class="nt">of</span>
+
+<span class="nt">color</span><span class="o">:</span><span class="nf">#333333</span><span class="o">;</span>
+</code></pre></div>
+<ul>
 <li>Units: <code>em</code> and <code>%</code> are preferred over <code>px</code> and <code>pt</code> when feasible.</li>
-<li>Units should always be provided due to issues with downlevel browsers (e.g. <code>margin: 10px 0px auto 10px;</code> instead of <code>margin: 10 0 auto 0;</code>)</li>
+<li>Units are not necessary for &quot;zero&quot;. Zero is zero in any unit.</li>
+<li>Units should always be provided for non-zero units due to issues with downlevel browsers (e.g. <code>margin: 10px 0px auto 10px;</code> instead of <code>margin: 10 0 auto 0;</code>)</li>
 <li>Fixed dimensions should <strong>not</strong> be specified unless absolutely necessary. Use padding/margin values that ensure that the affected elements will still render as preferred regardless of the nature of dynamic content or device size.</li>
 <li>Box-sizing should <strong>always</strong> be set to <code>border-box</code>.</li>
 <li>Style declarations should always be made at the lowest level of specificity required for consistent use. That is, a generic style should never be applied to solve a specific problem. (e.g., avoid using <code>div#searchbox input {font-size:larger;}</code> to adjust the style of a specific input control. Instead, reference that control by ID or assign a class to that control specifically. (e.g., <code>.search-field {font-size:larger;}</code>)</li>
@@ -125,6 +146,19 @@ top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;</code> and <code>c
 </ul>
 
 <h2>JavaScript</h2>
+
+<h2>Accessibility</h2>
+
+<p>Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always:</p>
+
+<ul>
+<li>use semantic HTML</li>
+<li>use alt text on all images</li>
+<li>use title attributes on all links</li>
+<li>test our sites using a screen reader</li>
+</ul>
+
+<h1>Back End (Server Side)</h1>
 
 <h2>C-Sharp</h2>
 
@@ -141,8 +175,6 @@ top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;</code> and <code>c
 <p>Many-to-many tables should be named with the two table names concatenated together (e.g. <code>Prices</code> and <code>Sections</code> would be joined on <code>PricesSections</code>) unless it is commonly understood to more closely correlate to a parent-detail relationship (e.g. <code>OrderDetails</code>).</p>
 
 <h2>NoSQL</h2>
-
-<h2>Browsers</h2>
 
 <h2>3rd Party Tools</h2>
 
@@ -181,15 +213,33 @@ top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;</code> and <code>c
 
       </section>
       <footer>
-        <p>This project is maintained by <a href="https://github.com/brushfiretech">Brushfire Technology</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-        <p><small>Parts of this document lovingly borrowed from <a href="http://yellowshoe.com.au/standards/">these guys</a> and <a href="http://taitems.github.com/Front-End-Development-Guidelines">those guys</a>.</small></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a>. Parts of this document lovingly borrowed from <a href="http://yellowshoe.com.au/standards/">these guys</a> and <a href="http://taitems.github.com/Front-End-Development-Guidelines">this guy</a>.</small></p>
       </footer>
     </div>
     <script src="js/scale.fix.js"></script>
-    <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
-      //$("code").wrap("<pre></pre>"); // dumb workaround
-    </script>-->
+      $(function()
+      {
+          $("section a").attr("target","_blank");
+
+          $("section h1, section h2").each(function(i,n)
+          {
+            $(n).prepend("<a id='" + $(n).text() + "'></a>");
+
+            if ($(n).is("h1"))
+              $(".toc").append("<li><a href='#" + $(n).find("a").attr("id") + "'>" + $(n).text() + "</a></li>");
+            else
+            {
+              if ($(n).is("h2") && $(".toc > li:last ul").length < 1)
+              {
+                $(".toc > li:last").append("<ul></ul>");
+              }
+              $(".toc > li:last ul").append("<li><a href='#" + $(n).find("a").attr("id") + "'>" + $(n).text() + "</a></li>");
+            } 
+          });
+
+      });
+    </script>
   </body>
 </html>
