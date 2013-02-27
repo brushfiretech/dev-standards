@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
   <head>
@@ -14,12 +15,9 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Development Standards and Guidelines</h1>
-        <p>Brushfire Technology</p>
-
-        <p class="view"><a href="https://github.com/brushfiretech/dev-standards">View the Project on GitHub <small>brushfiretech/dev-standards</small></a></p>
-
-
+        <h1>Design/Development Standards and Guidelines</h1>
+        <p>Brushfire Technology<br/>
+        Last Revised February 25, 2013</p>
         <ul>
           <li><a href="https://github.com/brushfiretech/dev-standards/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/brushfiretech/dev-standards/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -27,38 +25,168 @@
         </ul>
       </header>
       <section>
-        <h3>Welcome to GitHub Pages.</h3>
+        <h2>Why have standards and guidelines?</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd </span>your_repo_root/repo_name
-<span class="nv">$ </span>git fetch origin
-<span class="nv">$ </span>git checkout gh-pages
+<p>Whenever a team works on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion.  The practices outlined in this document are an attempt to do so based upon years of experience and commonly agreed-upon best practices.</p>
+
+<blockquote>
+<p>The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn&#39;t use patterns in the first place. – Phil Haack</p>
+</blockquote>
+
+<h2>General Document Guidelines</h2>
+
+<ul>
+<li>All indentation white space should be made with <a href="http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/"><strong>tabs and not spaces</strong></a>.</li>
+<li>Tab length can be set to any number of spaces in your personal editor that you prefer. 4 spaces is encouraged.</li>
+<li>All trailing spaces at the end of lines should be removed.</li>
+<li>File names should contain no spaces.</li>
+</ul>
+
+<h2>HTML</h2>
+
+<h3>Semantics</h3>
+
+<blockquote>
+<p>Semantics (from Greek: sēmantikós) is the study of meaning. It focuses on the relation between signifiers, like words, phrases, signs, and symbols, and what they stand for. – Wikipedia</p>
+</blockquote>
+
+<p>HTML gives meaning to content so that browsers and devices can then give that meaning to a user.  Therefore use the correct element(s) to define the appropriate type of information you are presenting. (e.g, if it&#39;s a heading, use a <code>h1</code>, <code>h2</code>, <code>h3</code>, etc. If it is a list, use a <code>ul</code> or <code>ol</code>.)</p>
+
+<p><aside>
+Tables are the most common offender of semantic designs. Tables should <strong>only</strong> be used for tabular data where rows and columns have clearly and traditionally defined roles and representation. Tables should <strong>never</strong> be used to lay out content.
+</aside></p>
+
+<h3>Formatting</h3>
+
+<ul>
+<li>All tags should have a matching closing tag or be self closing.</li>
+<li>All tags should be lower case</li>
+<li>All attributes should be enclosed in double quotes.</li>
+</ul>
+
+<h3>DOCTYPE</h3>
+
+<p>A doctype is necessary to force browsers to render in standards mode and prevent quirks mode headaches in IE.  The &quot;HTML5 doctype&quot; should be used in <strong>all</strong> documents.</p>
+<div class="highlight"><pre><code class="html"><span class="cp">&lt;!doctype html&gt;</span>
 </code></pre></div>
-<p>If you&#39;re using the GitHub for Mac, simply sync your repository and you&#39;ll see the new branch.</p>
+<h3>Naming conventions</h3>
 
-<h3>Designer Templates</h3>
+<p>Id and Class names should be lower case and hyphenated and not limit or specify use within the document structure because that structure may change. Therefore:</p>
 
-<p>We&#39;ve crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<ul>
+<li>Id&#39;s should <strong>define what the object is and does</strong> rather than where it appears on the page or in the DOM hierarchy. (e.g. <code>nav1</code> rather than <code>top-nav</code>)</li>
+<li>A class name should <strong>describe the behavior that it defines</strong> rather than where it appears on the page or in the DOM hierarchy. (eg. <code>news-block</code> rather than <code>bottom-info</code>)</li>
+</ul>
 
-<h3>Rather Drive Stick?</h3>
+<h3>Best Practices/Recommendations</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>Id’s should be assigned on a “general to specific” basis. e.g., <code>billing-name-first</code> shows that this is a field in the domain of the billing address, and then that this is part of the name element in that address, and of that name, this is the first name portion (to differentiate from <code>shipping-name-first</code> or <code>billing-name-last</code>).</p>
 
-<h3>Authors and Contributors</h3>
+<h2>Accessibility</h2>
 
-<p>You can @mention a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor&#39;s GitHub Profile. For example: In 2007, Chris Wanstrath (@defunkt), PJ Hyett (@pjhyett), and Tom Preston-Werner (@mojombo) founded GitHub.</p>
+<p>Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always:</p>
 
-<h3>Support or Contact</h3>
+<ul>
+<li>use alt text on all images</li>
+<li>use title attributes on all links</li>
+</ul>
 
-<p>Having trouble with Pages? Check out the documentation at http://help.github.com/pages or contact support@github.com and we’ll help you sort it out.</p>
+<h2>CSS</h2>
+
+<p>CSS 3.0 can and should be used as long as all functionality degrades gracefully to all targeted browsers so that there may be a degradation in the quality of the experience but the base functionality will still exist.</p>
+
+<p>Inline styles should be avoided in favor of class declarations except when it is not possible or pragmatic to do so.</p>
+
+<p>if/endif statement comment tags should be used to specify different style sheets for different browser situations. These style sheets should be named the same as the main style sheet and append a browser
+identifier after a dash (e.g. <code>style-ie.css</code>) and should ONLY contain the style declarations that need specific attention for that browser.</p>
+
+<h3>Naming conventions</h3>
+
+<p>Id and Class names should be lower case and hyphenated and not limit or specify use within the document structure because that structure may change. Therefore:</p>
+
+<ul>
+<li>Id&#39;s should <strong>define what the object is and does</strong> rather than where it appears on the page or in the DOM hierarchy. (e.g. <code>nav1</code> rather than <code>top-nav</code>)</li>
+<li>A class name should <strong>describe the behavior that it defines</strong> rather than where it appears on the page or in the DOM hierarchy. (eg. <code>news-block</code> rather than <code>bottom-info</code>)</li>
+</ul>
+
+<h3>Best Practices/Recommendations</h3>
+
+<ul>
+<li>All style attributes should be followed by a semi-colon</li>
+<li>All colors should be specified in HEX, RGB, or HSL. Fixed color names such as <code>white</code> or <code>black</code> should be avoided.</li>
+<li>Shorthand notation should be used whenever possible (e.g. <code>margin: 10px 0px 10px 0px;</code> instead of <code>margin-
+top:10px;margin-right:0px;margin-bottom:10px;margin-left:0px;</code> and <code>color:#333;</code> instead of <code>color:#333333;</code>).</li>
+<li>Units: <code>em</code> and <code>%</code> are preferred over <code>px</code> and <code>pt</code> when feasible.</li>
+<li>Units should always be provided due to issues with downlevel browsers (e.g. <code>margin: 10px 0px auto 10px;</code> instead of <code>margin: 10 0 auto 0;</code>)</li>
+<li>Fixed dimensions should <strong>not</strong> be specified unless absolutely necessary. Use padding/margin values that ensure that the affected elements will still render as preferred regardless of the nature of dynamic content or device size.</li>
+<li>Box-sizing should <strong>always</strong> be set to <code>border-box</code>.</li>
+<li>Style declarations should always be made at the lowest level of specificity required for consistent use. That is, a generic style should never be applied to solve a specific problem. (e.g., avoid using <code>div#searchbox input {font-size:larger;}</code> to adjust the style of a specific input control. Instead, reference that control by ID or assign a class to that control specifically. (e.g., <code>.search-field {font-size:larger;}</code>)</li>
+<li>Classes are encouraged over Id&#39;s. Due to the nature of a large-scale application, it is often difficult to know if an object may be re-used, but it should be crafted such that it can be.</li>
+</ul>
+
+<h2>JavaScript</h2>
+
+<h2>C-Sharp</h2>
+
+<h2>SQL</h2>
+
+<p>Entity names (both tables and fields) should be Pascal-cased.</p>
+
+<p>Table names should be pluralized and avoid reserved words whenever possible.</p>
+
+<p>Field names should be singular and avoid reserved words whenever possible.</p>
+
+<p>All tables should contain at least one primary key field. That field should be the singularized form of the table name followed by &quot;Id&quot; (e.g.for the table <code>Orders</code> the primary key would be <code>OrderId</code>.)</p>
+
+<p>Many-to-many tables should be named with the two table names concatenated together (e.g. <code>Prices</code> and <code>Sections</code> would be joined on <code>PricesSections</code>) unless it is commonly understood to more closely correlate to a parent-detail relationship (e.g. <code>OrderDetails</code>).</p>
+
+<h2>NoSQL</h2>
+
+<h2>Browsers</h2>
+
+<h2>3rd Party Tools</h2>
+
+<p>Use of 3rd party tools is encouraged when it is not feasible or smart to develop the functionality ourselves. 3rd party tools generally fall into two categories:</p>
+
+<ul>
+<li><p>Commercial - These tools are provided for a cost from some 3rd party. As long as there are avenues available to contact support quickly they&#39;re good.</p></li>
+<li><p>Open Source - These tools must be in active development and support and well documented.</p></li>
+</ul>
+
+<p>All production applications at Brushfire will automatically bundle and minify static resources using server-side processes. Because of this, it is recommended to never touch 3rd party CSS or JS files if at all possible. For CSS simply, include a set of overrides in a secondary file that will be bundled and served after the original file. For javascript, if a plugin architecture exists use it, or prototype functionality on to the object prototype.</p>
+
+<p>If it is not feasible or wise to do one of the above, then the following methods are suggested:</p>
+<div class="highlight"><pre><code class="javascript"><span class="p">...</span> <span class="nx">existing</span> <span class="nx">code</span> <span class="p">...</span>
+
+<span class="c1">// BRUSHFIRE START - {YOUR INITIALS} - {TODAY&#39;S DATE}</span>
+
+<span class="p">...</span> <span class="nx">modified</span> <span class="nx">code</span> <span class="p">...</span>
+
+<span class="c1">// BRUSHFIRE END</span>
+
+<span class="p">...</span> <span class="nx">existing</span> <span class="nx">code</span> <span class="p">...</span>
+</code></pre></div>
+<p>and</p>
+<div class="highlight"><pre><code class="css"><span class="o">...</span> <span class="nt">existing</span> <span class="nt">code</span> <span class="o">...</span>
+
+<span class="c">/* BRUSHFIRE START - {YOUR INITIALS} - {TODAY&#39;S DATE} */</span>
+
+<span class="o">...</span> <span class="nt">modified</span> <span class="nt">code</span> <span class="o">...</span>
+
+<span class="c">/* BRUSHFIRE END */</span>
+
+<span class="o">...</span> <span class="nt">existing</span> <span class="nt">code</span> <span class="o">...</span>
+</code></pre></div>
+<p>This is so that when an updated version of the file is released from the 3rd party, you can replace the entire file and not overwrite your code.  All code should be searched for the above comment syntax before it is replaced with a newer version.</p>
 
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/brushfiretech">Brushfire Technology</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+        <p><small>Parts of this document lovingly borrowed from <a href="http://yellowshoe.com.au/standards/">these guys</a> and <a href="http://taitems.github.com/Front-End-Development-Guidelines">those guys</a>.</small></p>
       </footer>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
+    <script src="js/scale.fix.js"></script>
     <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript">
       //$("code").wrap("<pre></pre>"); // dumb workaround

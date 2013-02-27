@@ -71,6 +71,15 @@ pre {
   overflow-x: auto;
 }
 
+aside {
+  padding:8px 15px;
+  background: #fcf8e3;  
+  color: #c09853;
+  border-radius:5px;
+  border:1px solid #fbeed5;
+  overflow-x: auto;
+}
+
 table {
   width:100%;
   border-collapse:collapse;
@@ -139,7 +148,6 @@ header ul a {
 }
 
 strong {
-  color:#222;
   font-weight:700;
 }
 
