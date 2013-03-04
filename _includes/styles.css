@@ -149,6 +149,11 @@ header {
 
 .toc {
   list-style:none;
+  margin:0;
+}
+
+.toc ul {
+  margin:0;
 }
 
 strong {
