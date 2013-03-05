@@ -17,7 +17,7 @@
       <header>
         <h1>Design/Development Standards and Guidelines</h1>
         <p>Brushfire Technology<br/>
-        Last Revised March  3, 2013</p>
+        Last Revised March  4, 2013</p>
         <ul class="github">
           <li><a href="https://github.com/brushfiretech/dev-standards/zipball/master">Download <strong>ZIP File</strong></a></li>
           <li><a href="https://github.com/brushfiretech/dev-standards/tarball/master">Download <strong>TAR Ball</strong></a></li>
@@ -27,9 +27,7 @@
         </ul>
       </header>
       <section>
-        <h1>Introduction</h1>
-
-<h3>Foreword</h3>
+        <h2>Introduction</h2>
 
 <p>Whenever two or more people work on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion. This is especially true of software development. The practices outlined in this document are an attempt to create a consistent set of standards based upon years of experience and commonly agreed-upon best practices.</p>
 
@@ -37,7 +35,7 @@
 <p>The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn&#39;t use patterns in the first place. – <a href="https://twitter.com/haacked/status/20227608300">Phil</a> <a href="https://twitter.com/haacked/status/20227672330">Haack</a></p>
 </blockquote>
 
-<h3>General Document Guidelines</h3>
+<h2>General Document Guidelines</h2>
 
 <ul>
 <li>All indentation white space should be made with <a href="http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/"><strong>tabs and not spaces</strong></a>.</li>
@@ -46,8 +44,6 @@
 <li>File names should contain no spaces.</li>
 </ul>
 
-<h1>Front End (Client Side)</h1>
-
 <h2>Browsers</h2>
 
 <p>It is not important (or even possible) for our websites to appear <em>identically</em> in every browser. Our purpose is to serve a functional site to all users of supported browsers by delivering content that is valuable to them. To that end, the site should function <em>similarly</em> in all supported browsers and not appear broken.</p>
@@ -55,6 +51,17 @@
 <h3>We currently support:</h3>
 
 <p>Internet Explorer 7+, and the latest versions of Firefox, Chrome, Safari, and Opera. Testing for all these browsers <strong>must</strong> be done prior to code going into production. Install the browsers yourself or fire up a Virtual Machine.</p>
+
+<h2>Accessibility</h2>
+
+<p>Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always, at least:</p>
+
+<ul>
+<li>use semantic HTML</li>
+<li>use alt text on all images</li>
+<li>use title attributes on all links</li>
+<li>test our sites using a screen reader</li>
+</ul>
 
 <h2>HTML</h2>
 
@@ -181,22 +188,45 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 
 <p>Avoid inline event handlers. The clutter up markup and are the scripting equivalent of inline CSS styles. Only use them when it is absolutely necessary.</p>
 
-<h2>Accessibility</h2>
+<p>Global variables should be declared in all upper case with underscores between words.</p>
+<div class="highlight"><pre><code class="js"><span class="nx">GLOBAL_VARIABLE</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span><span class="p">;</span>
+</code></pre></div>
+<p>When creating a module, private member declarations (module scope) should be declared with a leading underscore and camel-case. Also, because all variables are lexically scoped to the current function&#39;s level in JavaScript (a module is just an implementation of a function), they should be declared together at the top of the module body with a single var statement and a hanging indent.</p>
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">_otherVar</span><span class="p">,</span> <span class="nx">_otherVar2</span><span class="p">,</span>
+    <span class="nx">_privateProperty</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-<p>Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always, at least:</p>
+<span class="kd">var</span> <span class="nx">_logMessage</span><span class="p">(</span><span class="nx">_typeId</span><span class="p">,</span> <span class="nx">_msgText</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>
+<p>Local variables (function scope) should be declared with camel-case. This includes function parameters. Also, because all variables are lexically scoped to the current function&#39;s level in JavaScript, they should be declared together at the top of the function body with a single var statement and a hanging indent.</p>
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">otherVar</span><span class="p">,</span> <span class="nx">otherVar2</span><span class="p">,</span>
+    <span class="nx">privateProperty</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-<ul>
-<li>use semantic HTML</li>
-<li>use alt text on all images</li>
-<li>use title attributes on all links</li>
-<li>test our sites using a screen reader</li>
-</ul>
+<span class="kd">var</span> <span class="nx">_logMessage</span><span class="p">(</span><span class="nx">typeId</span><span class="p">,</span> <span class="nx">msgText</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>
+<p>Public member declarations should be declared with Pascal case.</p>
+<div class="highlight"><pre><code class="js"><span class="nx">PublicProperty</span><span class="o">:</span> <span class="kc">true</span>
 
-<h1>Back End (Server Side)</h1>
+<span class="nx">LogMessage</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">typeId</span><span class="p">,</span> <span class="nx">msgText</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+</code></pre></div>
+<p>Unless the entire function/control statement body can fit on one line, opening and closing curly bracess should appear on their own line at the same indent as the parent function/control statement body. The enclosed body should be indented one tab.</p>
+<div class="highlight"><pre><code class="js"><span class="c1">// OK</span>
+<span class="kd">var</span> <span class="nx">_smallFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">simpleParameter</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">simpleParameter</span><span class="p">;</span> <span class="p">}</span>
 
-<h2>C-Sharp</h2>
+<span class="c1">// also OK</span>
+<span class="kd">var</span> <span class="nx">_longerFunction</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">complexParameter</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">variable1</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="nx">variable2</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-<p>Private member declarations should be declared with a leading underscore and camel-case.</p>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">variable2</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">variable1</span> <span class="o">=</span> <span class="s2">&quot;variable 2 is true&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2>C#/Razor</h2>
+
+<p>Private member declarations should be declared with a leading underscore and camel-case. </p>
 <div class="highlight"><pre><code class="c#"><span class="k">private</span> <span class="kt">string</span> <span class="n">_firstName</span><span class="p">;</span>
 
 <span class="k">private</span> <span class="k">void</span> <span class="nf">_logMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
@@ -206,7 +236,7 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 
 <span class="k">public</span> <span class="k">void</span> <span class="nf">LogMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 </code></pre></div>
-<p>Local variables (function-scope) should be declared with camel-case.</p>
+<p>Local variables (function-scope) should be declared with camel-case. This includes function parameters.</p>
 <div class="highlight"><pre><code class="c#"><span class="k">void</span> <span class="nf">LogMessage</span><span class="p">(</span><span class="kt">string</span> <span class="n">message</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="n">DateTime</span> <span class="n">todaysDate</span> <span class="p">=</span> <span class="n">DateTime</span><span class="p">.</span><span class="n">Today</span><span class="p">;</span>
@@ -230,6 +260,9 @@ Tables are the most common offender of semantic web designs. Tables should <stro
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Constants should be declared in all upper-case with underscores</p>
+<div class="highlight"><pre><code class="c#"><span class="k">public</span> <span class="k">const</span> <span class="kt">string</span> <span class="n">OUR_NAME</span> <span class="p">=</span> <span class="s">&quot;Brushfire Technology&quot;</span><span class="p">;</span>
+</code></pre></div>
 <h2>SQL</h2>
 
 <p>Entity names (both tables and fields) should be Pascal-cased.</p>
@@ -242,48 +275,45 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 
 <p>Many-to-many tables should be named with the two table names concatenated together (e.g. <code>Prices</code> and <code>Sections</code> would be joined on <code>PricesSections</code>) unless it is commonly understood to more closely correlate to a parent-detail relationship (e.g. <code>OrderDetails</code>).</p>
 
-<h2>3rd Party Tools</h2>
+<h2>3rd Party Tools &amp; Libraries</h2>
 
-<p>Use of 3rd party tools is encouraged when it is not feasible or smart to develop the functionality ourselves. 3rd party tools generally fall into two categories:</p>
+<h3>Usage Guidelines</h3>
 
-<p>Frameworks are not evil, they save time, fix cross browser compatibility issues and make us think in new ways. But, they do add overhead so before we jump in bed with them:</p>
+<p>Use of 3rd party tools is encouraged when it is not feasible or smart to develop the functionality ourselves. Frameworks are not evil, they save time, fix cross browser compatibility issues and make us think in new ways. But, they do add overhead so before we jump in bed with them:</p>
 
 <blockquote>
-<p>If you want to use a library you must have read it, understood it, agree with it, and not be able to write a better one on your best day of coding. - @sentience</p>
+<p>If you want to use a library you must have read it, understood it, agree with it, and not be able to write a better one on your best day of coding. - <a href="https://twitter.com/sentience">Kevin Yank</a></p>
 </blockquote>
 
-<ul>
-<li><p>Commercial - These tools are provided for a cost from some 3rd party. As long as there are avenues available to contact support quickly they&#39;re good.</p></li>
-<li><p>Open Source - These tools must be in active development and support and well documented.</p></li>
-</ul>
+<p>We&#39;ll add that the library must also be <em>actively developed, supported, and documented</em>. <strong>Don&#39;t use a library</strong> if the developer hasn&#39;t updated the code in months or if there are outstanding issues that aren&#39;t addressed reasonably quickly -- unless you yourself can supplement the code base to fill in the necessary gaps.</p>
 
-<p>All production applications at Brushfire will automatically bundle and minify static resources using server-side processes. Because of this, it is recommended to never touch 3rd party CSS or JS files if at all possible. For CSS simply, include a set of overrides in a secondary file that will be bundled and served after the original file. For javascript, if a plugin architecture exists use it, or prototype functionality on to the object prototype.</p>
+<h3>Making local changes to actively developed libraries</h3>
 
-<p>If it is not feasible or wise to do one of the above, then the following methods are suggested:</p>
-<div class="highlight"><pre><code class="javascript"><span class="p">...</span> <span class="nx">existing</span> <span class="nx">code</span> <span class="p">...</span>
+<p>All production applications at Brushfire will automatically bundle and minify static resources using server-side processes. Because of this, it is recommended to never touch 3rd party CSS or JS files if at all possible. For CSS simply, include a set of overrides in a secondary file that will be bundled and served after the original file. For javascript, if a plugin architecture exists, use it; or manually add functionality on to the object prototype in a secondary file.</p>
+
+<p>If it is not feasible or wise to do one of the above, then the following methods are suggested when editing the original file. This is so that when an updated version of the file is released from the 3rd party, you can replace the entire file and not overwrite your code.  All code should be searched for the above comment syntax before it is replaced with a newer version.</p>
+<div class="highlight"><pre><code class="js"><span class="p">...</span> <span class="nx">existing</span> <span class="nx">JavaScript</span> <span class="p">...</span>
 
 <span class="c1">// BRUSHFIRE START - {YOUR INITIALS} - {TODAY&#39;S DATE}</span>
 
-<span class="p">...</span> <span class="nx">modified</span> <span class="nx">code</span> <span class="p">...</span>
+<span class="p">...</span> <span class="nx">modified</span> <span class="nx">or</span> <span class="nx">commented</span> <span class="nx">JavaScript</span> <span class="p">...</span>
 
 <span class="c1">// BRUSHFIRE END</span>
 
-<span class="p">...</span> <span class="nx">existing</span> <span class="nx">code</span> <span class="p">...</span>
+<span class="p">...</span> <span class="nx">existing</span> <span class="nx">JavaScript</span> <span class="p">...</span>
 </code></pre></div>
 <p>and</p>
-<div class="highlight"><pre><code class="css"><span class="o">...</span> <span class="nt">existing</span> <span class="nt">code</span> <span class="o">...</span>
+<div class="highlight"><pre><code class="css"><span class="o">...</span> <span class="nt">existing</span> <span class="nt">CSS</span> <span class="o">...</span>
 
 <span class="c">/* BRUSHFIRE START - {YOUR INITIALS} - {TODAY&#39;S DATE} */</span>
 
-<span class="o">...</span> <span class="nt">modified</span> <span class="nt">code</span> <span class="o">...</span>
+<span class="o">...</span> <span class="nt">modified</span> <span class="nt">or</span> <span class="nt">commented</span> <span class="nt">CSS</span> <span class="o">...</span>
 
 <span class="c">/* BRUSHFIRE END */</span>
 
-<span class="o">...</span> <span class="nt">existing</span> <span class="nt">code</span> <span class="o">...</span>
+<span class="o">...</span> <span class="nt">existing</span> <span class="nt">CSS</span> <span class="o">...</span>
 </code></pre></div>
-<p>This is so that when an updated version of the file is released from the 3rd party, you can replace the entire file and not overwrite your code.  All code should be searched for the above comment syntax before it is replaced with a newer version.</p>
-
-<h1>Resources</h1>
+<h2>Suggested Resources</h2>
 
 <ul>
 <li><a href="http://caniuse.com">Can I Use</a></li>
@@ -291,6 +321,10 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 <li><a href="http://modernizr.com">Modernizr</a></li>
 <li><a href="http://smacss.com">Scalable and Modular CSS</a></li>
 </ul>
+
+<h2>Conclusion</h2>
+
+<p>Rules are the new black. They&#39;re so hot right now. Let&#39;s make something awesome.</p>
 
       </section>
       <footer>
@@ -308,11 +342,11 @@ Tables are the most common offender of semantic web designs. Tables should <stro
           {
             $(n).prepend("<a id='" + $(n).text() + "'></a>");
 
-            if ($(n).is("h1"))
+            if ($(n).is("h2"))
               $(".toc").append("<li><a href='#" + $(n).find("a").attr("id") + "'>" + $(n).text() + "</a></li>");
             else
             {
-              if ($(n).is("h2") && $(".toc > li:last ul").length < 1)
+              if ($(n).is("h3") && $(".toc > li:last ul").length < 1)
               {
                 $(".toc > li:last").append("<ul></ul>");
               }

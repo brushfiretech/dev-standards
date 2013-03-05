@@ -44,11 +44,11 @@
           {
             $(n).prepend("<a id='" + $(n).text() + "'></a>");
 
-            if ($(n).is("h1"))
+            if ($(n).is("h2"))
               $(".toc").append("<li><a href='#" + $(n).find("a").attr("id") + "'>" + $(n).text() + "</a></li>");
             else
             {
-              if ($(n).is("h2") && $(".toc > li:last ul").length < 1)
+              if ($(n).is("h3") && $(".toc > li:last ul").length < 1)
               {
                 $(".toc > li:last").append("<ul></ul>");
               }

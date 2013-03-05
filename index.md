@@ -1,24 +1,20 @@
 ---
 layout: default
-date: 03/03/2013
+date: 03/04/2013
 ---
 
-# Introduction
-
-### Foreword
+## Introduction
 
 Whenever two or more people work on anything, a centralized, consistent set of language and methods is necessary to increase productivity and decrease confusion. This is especially true of software development. The practices outlined in this document are an attempt to create a consistent set of standards based upon years of experience and commonly agreed-upon best practices.
 
 >The best way to learn good practices is to run into the problems that spawned them in the first place and internalize the solution. Code that implement patterns from a checklist and not experience is often worse than code that doesn't use patterns in the first place. – [Phil](https://twitter.com/haacked/status/20227608300) [Haack](https://twitter.com/haacked/status/20227672330)
 
-### General Document Guidelines
+## General Document Guidelines
 
 * All indentation white space should be made with [__tabs and not spaces__](http://lea.verou.me/2012/01/why-tabs-are-clearly-superior/).
 * Tab length can be set to any number of spaces in your personal editor that you prefer. Two or four spaces are encouraged.
 * All trailing spaces at the end of lines should be removed.
 * File names should contain no spaces.
-
-# Front End (Client Side)
 
 ## Browsers
 
@@ -27,6 +23,15 @@ It is not important (or even possible) for our websites to appear _identically_ 
 ### We currently support:
 
 Internet Explorer 7+, and the latest versions of Firefox, Chrome, Safari, and Opera. Testing for all these browsers __must__ be done prior to code going into production. Install the browsers yourself or fire up a Virtual Machine.
+
+## Accessibility
+
+Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always, at least:
+
+* use semantic HTML
+* use alt text on all images
+* use title attributes on all links
+* test our sites using a screen reader
 
 ## HTML
 
@@ -170,22 +175,60 @@ However, we _cannot_ assume a browser has a specific set of functionalities or c
 
 Avoid inline event handlers. The clutter up markup and are the scripting equivalent of inline CSS styles. Only use them when it is absolutely necessary.
 
+Global variables should be declared in all upper case with underscores between words.
 
+```js
+GLOBAL_VARIABLE = "1";
+```
 
-## Accessibility
+When creating a module, private member declarations (module scope) should be declared with a leading underscore and camel-case. Also, because all variables are lexically scoped to the current function's level in JavaScript (a module is just an implementation of a function), they should be declared together at the top of the module body with a single var statement and a hanging indent.
 
-Since there is no way to fully determine what every user of our software will see or experience due to handicaps or other circumstances, it should be our goal to make the experience as accessible as possible for the common tools to help those. As such, we should always, at least:
+```js
+var _otherVar, _otherVar2,
+	_privateProperty = true;
 
-* use semantic HTML
-* use alt text on all images
-* use title attributes on all links
-* test our sites using a screen reader
+var _logMessage(_typeId, _msgText) { ... }
+```
 
-# Back End (Server Side)
+Local variables (function scope) should be declared with camel-case. This includes function parameters. Also, because all variables are lexically scoped to the current function's level in JavaScript, they should be declared together at the top of the function body with a single var statement and a hanging indent.
 
-## C-Sharp
+```js
+var otherVar, otherVar2,
+	privateProperty = true;
 
-Private member declarations should be declared with a leading underscore and camel-case.
+var _logMessage(typeId, msgText) { ... }
+```
+
+Public member declarations should be declared with Pascal case.
+
+```js
+PublicProperty: true
+
+LogMessage: function(typeId, msgText) { ... }
+```
+
+Unless the entire function/control statement body can fit on one line, opening and closing curly bracess should appear on their own line at the same indent as the parent function/control statement body. The enclosed body should be indented one tab.
+
+```js
+// OK
+var _smallFunction = function(simpleParameter) { return simpleParameter; }
+
+// also OK
+var _longerFunction = function(complexParameter)
+{
+	var variable1 = "",
+		variable2 = true;
+
+	if (variable2)
+	{
+		variable1 = "variable 2 is true";
+	}
+}
+```
+
+## C#/Razor
+
+Private member declarations should be declared with a leading underscore and camel-case. 
 
 ```c#
 private string _firstName;
@@ -201,7 +244,7 @@ public string FirstName {get; set;}
 public void LogMessage(string message) { ... }
 ```
 
-Local variables (function-scope) should be declared with camel-case.
+Local variables (function-scope) should be declared with camel-case. This includes function parameters.
 
 ```c#
 void LogMessage(string message)
@@ -231,6 +274,12 @@ string _longerFunction(string complexParameter)
 }
 ```
 
+Constants should be declared in all upper-case with underscores
+
+```c#
+public const string OUR_NAME = "Brushfire Technology";
+```
+
 ## SQL
 
 Entity names (both tables and fields) should be Pascal-cased.
@@ -243,33 +292,33 @@ All tables should contain at least one primary key field. That field should be t
 
 Many-to-many tables should be named with the two table names concatenated together (e.g. `Prices` and `Sections` would be joined on `PricesSections`) unless it is commonly understood to more closely correlate to a parent-detail relationship (e.g. `OrderDetails`).
 
-## 3rd Party Tools
+## 3rd Party Tools & Libraries
 
-Use of 3rd party tools is encouraged when it is not feasible or smart to develop the functionality ourselves. 3rd party tools generally fall into two categories:
+### Usage Guidelines
 
-Frameworks are not evil, they save time, fix cross browser compatibility issues and make us think in new ways. But, they do add overhead so before we jump in bed with them:
+Use of 3rd party tools is encouraged when it is not feasible or smart to develop the functionality ourselves. Frameworks are not evil, they save time, fix cross browser compatibility issues and make us think in new ways. But, they do add overhead so before we jump in bed with them:
 
->If you want to use a library you must have read it, understood it, agree with it, and not be able to write a better one on your best day of coding. - @sentience
+>If you want to use a library you must have read it, understood it, agree with it, and not be able to write a better one on your best day of coding. - [Kevin Yank](https://twitter.com/sentience)
 
-* Commercial - These tools are provided for a cost from some 3rd party. As long as there are avenues available to contact support quickly they're good.
+We'll add that the library must also be _actively developed, supported, and documented_. __Don't use a library__ if the developer hasn't updated the code in months or if there are outstanding issues that aren't addressed reasonably quickly -- unless you yourself can supplement the code base to fill in the necessary gaps.
 
-* Open Source - These tools must be in active development and support and well documented.
+### Making local changes to actively developed libraries
 
-All production applications at Brushfire will automatically bundle and minify static resources using server-side processes. Because of this, it is recommended to never touch 3rd party CSS or JS files if at all possible. For CSS simply, include a set of overrides in a secondary file that will be bundled and served after the original file. For javascript, if a plugin architecture exists use it, or prototype functionality on to the object prototype.
+All production applications at Brushfire will automatically bundle and minify static resources using server-side processes. Because of this, it is recommended to never touch 3rd party CSS or JS files if at all possible. For CSS simply, include a set of overrides in a secondary file that will be bundled and served after the original file. For javascript, if a plugin architecture exists, use it; or manually add functionality on to the object prototype in a secondary file.
 
-If it is not feasible or wise to do one of the above, then the following methods are suggested:
+If it is not feasible or wise to do one of the above, then the following methods are suggested when editing the original file. This is so that when an updated version of the file is released from the 3rd party, you can replace the entire file and not overwrite your code.  All code should be searched for the above comment syntax before it is replaced with a newer version.
 
-```javascript
+```js
 
-... existing code ...
+... existing JavaScript ...
 
 // BRUSHFIRE START - {YOUR INITIALS} - {TODAY'S DATE}
 
-... modified code ...
+... modified or commented JavaScript ...
 
 // BRUSHFIRE END
 
-... existing code ...
+... existing JavaScript ...
 
 ```
 
@@ -277,23 +326,25 @@ and
 
 ```css
 
-... existing code ...
+... existing CSS ...
 
 /* BRUSHFIRE START - {YOUR INITIALS} - {TODAY'S DATE} */
 
-... modified code ...
+... modified or commented CSS ...
 
 /* BRUSHFIRE END */
 
-... existing code ...
+... existing CSS ...
 
 ```
 
-This is so that when an updated version of the file is released from the 3rd party, you can replace the entire file and not overwrite your code.  All code should be searched for the above comment syntax before it is replaced with a newer version.
-
-# Resources
+## Suggested Resources
 
 * [Can I Use](http://caniuse.com)
 * [Twitter Bootstrap](http://twitter.github.com/bootstrap)
 * [Modernizr](http://modernizr.com)
 * [Scalable and Modular CSS](http://smacss.com)
+
+## Conclusion
+
+Rules are the new black. They're so hot right now. Let's make something awesome.
