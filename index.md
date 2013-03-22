@@ -91,7 +91,7 @@ Don't use `!important`. It's lazy. All CSS is important and well-written CSS cas
 
 All style attribute declarations should be followed by a semi-colon.
 
-All colors should be specified in HEX, RGB, or HSL. Fixed color names such as `white` or `black` should be avoided.
+All colors should be specified in HEX, RGBA, or HSL. Fixed color names such as `white` or `black` should be avoided. If using something besides HEX, safeguard the color with a HEX color as well.
 
 Shorthand notation should be used whenever possible:
 
@@ -135,22 +135,22 @@ For all responsive designs, the following viewport should be set:
 Rather than using specific style sheets for IE version-specific situations (e.g., `style-ie.css`) assign conditional classes to the root html classes:
 
 ```html
-<!--[if lt IE 7 ]> <html class="ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html class="ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html class="ie8"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> <html> <!--<![endif]-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 ```
 
 then a specific version can be targeted with a class like
 
 ```css
-.ie6 #myElement { float: left; width: 100% }
+.lt-ie7 #myElement { float: left; width: 100% }
 ```
 
 Giving an element "Layout" will fix 99% of IE rendering bugs. The other 1% will most likely be related to position: relative; or floats. Use "zoom: 1" as a trigger for whatever IE versions need it.
 
 ```css
-.ie6 #myElement, .ie7 #myElement { zoom: 1 }
+.lt-ie7 #myElement, .ie7 #myElement { zoom: 1 }
 ```
 
 Use all vendor prefixes in alphabetical order with the prefixless version last.
@@ -196,7 +196,7 @@ Local variables (function scope) should be declared with camel-case. This includ
 var otherVar, otherVar2,
 	privateProperty = true;
 
-var _logMessage(typeId, msgText) { ... }
+var logMessage(typeId, msgText) { ... }
 ```
 
 Public member declarations should be declared with Pascal case.
@@ -225,6 +225,12 @@ var _longerFunction = function(complexParameter)
 	}
 }
 ```
+
+### Best Practices
+
+Know when to use `.substr()` instead of `.substring()`. The former takes a first parameter of the zero-based index of the character, and the second parameter is optional and is a length for number of characters to retrieve.  If excluded, it will get the rest of the string.  The latter takes a second parameter that is the index of the stop point.
+
+`parseInt()` takes two parameters. The first is the string to parse, the second is optional but should __always__ be supplied. It is the "radix" and declares the base of the integer that is returned. [More info](https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/parseInt).
 
 ## C#/Razor
 

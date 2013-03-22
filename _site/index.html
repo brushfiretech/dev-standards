@@ -126,7 +126,7 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 
 <p>All style attribute declarations should be followed by a semi-colon.</p>
 
-<p>All colors should be specified in HEX, RGB, or HSL. Fixed color names such as <code>white</code> or <code>black</code> should be avoided.</p>
+<p>All colors should be specified in HEX, RGBA, or HSL. Fixed color names such as <code>white</code> or <code>black</code> should be avoided. If using something besides HEX, safeguard the color with a HEX color as well.</p>
 
 <p>Shorthand notation should be used whenever possible:</p>
 <div class="highlight"><pre><code class="css"><span class="nc">.class</span> <span class="p">{</span><span class="k">margin</span><span class="o">:</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span><span class="m">#333</span><span class="p">;}</span>
@@ -201,7 +201,7 @@ Tables are the most common offender of semantic web designs. Tables should <stro
 <div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">otherVar</span><span class="p">,</span> <span class="nx">otherVar2</span><span class="p">,</span>
     <span class="nx">privateProperty</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">_logMessage</span><span class="p">(</span><span class="nx">typeId</span><span class="p">,</span> <span class="nx">msgText</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
+<span class="kd">var</span> <span class="nx">logMessage</span><span class="p">(</span><span class="nx">typeId</span><span class="p">,</span> <span class="nx">msgText</span><span class="p">)</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 </code></pre></div>
 <p>Public member declarations should be declared with Pascal case.</p>
 <div class="highlight"><pre><code class="js"><span class="nx">PublicProperty</span><span class="o">:</span> <span class="kc">true</span>
